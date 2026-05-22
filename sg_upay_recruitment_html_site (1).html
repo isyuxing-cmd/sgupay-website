@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SG UPAY Recruitment System</title>
+<style>
+body{margin:0;font-family:Arial;background:#f4f6f8;color:#222;}
+header{background:#fff;padding:16px 20px;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,0.05);z-index:10;}
+.container{max-width:1100px;margin:auto;padding:20px;}
+nav a{margin-right:12px;text-decoration:none;color:#333;font-weight:bold;font-size:14px;}
+.hero{text-align:center;padding:60px 20px;background:#fff;}
+.hero h1{font-size:34px;margin-bottom:10px;}
+.btn{padding:10px 16px;border-radius:10px;text-decoration:none;display:inline-block;cursor:pointer;border:none;}
+.black{background:#000;color:#fff;}
+.white{background:#fff;border:1px solid #000;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:15px;}
+.card{background:#fff;padding:15px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,0.05);}
+.section{padding:30px 20px;}
+input,textarea,select{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:8px;}
+.small{color:gray;font-size:13px;}
+.job-title{font-weight:bold;font-size:16px;}
+.tag{display:inline-block;background:#000;color:#fff;padding:3px 8px;border-radius:6px;font-size:12px;margin-bottom:6px;}
+.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:#fff;padding:14px 18px;border-radius:50px;text-decoration:none;}
+.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+<h2>SG UPAY TECHNOLOGY DEVELOPMENT PTE LTD</h2>
+<div class="small">Recruitment System 招聘管理系统 | Manufacturing & Service Industry</div>
+<nav>
+<a href="#jobs">Jobs 职位</a>
+<a href="#post">Post 发布</a>
+<a href="#workers">Workers 工人</a>
+<a href="#contact">Contact 联系</a>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<h1>Full Recruitment Management System<br/>完整招聘管理系统</h1>
+<p>Post Jobs • Manage Workers • Instant WhatsApp Contact</p>
+</section>
+
+<!-- JOBS -->
+<section class="section" id="jobs">
+<div class="container">
+<h2>Latest Jobs 最新职位</h2>
+<div id="jobList" class="grid"></div>
+</div>
+</section>
+
+<!-- POST JOB -->
+<section class="section" id="post" style="background:#fff;">
+<div class="container">
+<h2>Post a Job 发布职位</h2>
+<input id="jobTitle" placeholder="Job Title 职位名称" />
+<input id="jobSalary" placeholder="Salary 薪资" />
+<select id="jobType">
+<option>Manufacturing 制造业</option>
+<option>Service 服务业</option>
+<option>Installation 安装</option>
+</select>
+<button class="btn black" onclick="addJob()">Post Job 发布</button>
+<p class="small">Jobs will be stored locally (demo system)</p>
+</div>
+</section>
+
+<!-- WORKERS -->
+<section class="section" id="workers">
+<div class="container">
+<h2>Worker List 工人资源</h2>
+<div class="grid">
+<div class="card">
+<div class="tag">MIG Welder</div>
+<div class="job-title">Chinese Welder in Singapore</div>
+<p>Experience: 5 years</p>
+<p>Status: Available</p>
+<a class="btn black" href="https://wa.me/6580000000">Contact</a>
+</div>
+
+<div class="card">
+<div class="tag">Kitchen</div>
+<div class="job-title">Kitchen Helper</div>
+<p>Experience: 3 years</p>
+<p>Status: Available</p>
+<a class="btn black" href="https://wa.me/6580000000">Contact</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background:#fff;text-align:center;">
+<div class="container">
+<h2>Contact Us 联系我们</h2>
+<p>Fast recruitment support in Singapore</p>
+<a class="btn black" href="https://wa.me/6580000000">WhatsApp Now</a>
+</div>
+</section>
+
+<footer style="text-align:center;padding:20px;color:gray;">
+SG UPAY TECHNOLOGY DEVELOPMENT PTE LTD © 2026
+</footer>
+
+<a class="whatsapp" href="https://wa.me/6580000000">WhatsApp</a>
+
+<script>
+// simple job storage demo
+let jobs = JSON.parse(localStorage.getItem('jobs') || '[]');
+
+function renderJobs(){
+  const box = document.getElementById('jobList');
+  box.innerHTML = '';
+  jobs.forEach(j=>{
+    box.innerHTML += `
+    <div class='card'>
+      <div class='tag'>${j.type}</div>
+      <div class='job-title'>${j.title}</div>
+      <p>Salary: ${j.salary}</p>
+      <a class='btn black' href='https://wa.me/6580000000'>Apply</a>
+    </div>`;
+  });
+}
+
+function addJob(){
+  const title=document.getElementById('jobTitle').value;
+  const salary=document.getElementById('jobSalary').value;
+  const type=document.getElementById('jobType').value;
+
+  if(!title||!salary) return alert('Please fill in all fields');
+
+  jobs.push({title,salary,type});
+  localStorage.setItem('jobs',JSON.stringify(jobs));
+
+  renderJobs();
+  alert('Job posted successfully');
+}
+
+renderJobs();
+</script>
+
+</body>
+</html>
